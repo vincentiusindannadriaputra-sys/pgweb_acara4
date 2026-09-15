@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LeafletJS</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+
+    <style>
+        html,
+        body,
+        #map {
+            height: 100%;
+            margin: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="map"></div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+    <script>
+        // Initialize map
+        var map = L.map('map').setView([-7.767342987903731, 110.2105696751155], 13);
+
+        // Tile Layer Base Map
+        var osm = L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+            attribution:
+                '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+        });
+
+        var Esri_WorldImagery = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+            attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+        });
+
+        var rupabumiindonesia = L.tileLayer('https://geoservices.big.go.id/rbi/rest/services/BASEMAP/Rupabumi_Indonesia/MapServer/tile/{z}/{y}/{x}', {
+            attribution: 'Badan Informasi Geospasial'
+        });
+
+        var OpenTopoMap = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+            maxZoom: 17,
+            attribution: 'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
+        });
+
+        var OpenStreetMap_HOT = L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Tiles style by <a href="https://www.hotosm.org/" target="_blank">Humanitarian OpenStreetMap Team</a> hosted by <a href="https://openstreetmap.fr/" target="_blank">OpenStreetMap France</a>'
+        });
+
+        // Menambahkan basemap ke dalam peta
+        osm.addTo(map);
+
+        // Marker
+        var marker1 = L.marker([-7.767342987903731, 110.2105696751155]);
+        var marker2 = L.marker([-7.72554766855247, 110.2347724114698]);
+
+        // Menambahkan marker ke dalam peta
+        marker1.addTo(map);
+        marker2.addTo(map);
+
+        // Popup 1
+        marker1.bindPopup("<b>Nanggulan</b><br> Kecamatan Nanggulan merupakan salah satu kecamatan yang berada di Kabupaten Kulon Progo, Daerah Istimewa Yogyakarta, Indonesia. Wilayah Kecamatan Nanggulan memiliki karakteristik berupa kawasan perdesaan dengan kondisi topografi yang bervariasi, mulai dari wilayah dataran hingga daerah yang relatif berbukit. Kecamatan ini memiliki penggunaan lahan yang didominasi oleh permukiman, lahan pertanian, perkebunan, serta berbagai fasilitas umum dan jaringan transportasi yang mendukung aktivitas masyarakat. Kondisi lingkungan dan sumber daya lahan di Kecamatan Nanggulan menjadikan sektor pertanian sebagai salah satu kegiatan penting bagi masyarakat setempat. Selain itu, keberadaan jalan, sungai, fasilitas pendidikan, fasilitas kesehatan, dan pusat kegiatan ekonomi turut mendukung perkembangan wilayah. Secara administratif, Kecamatan Nanggulan terbagi ke dalam beberapa kalurahan yang masing-masing memiliki karakteristik wilayah dan potensi sumber daya yang berbeda, sehingga Kecamatan Nanggulan menjadi salah satu wilayah yang memiliki potensi untuk dikembangkan dalam bidang pertanian, permukiman, serta kegiatan ekonomi dan sosial masyarakat.")
+        marker1.openPopup();
+
+        // Popup 2
+        marker2.bindPopup("<b>Minggir</b><br> Kecamatan Minggir merupakan salah satu kecamatan yang berada di Kabupaten Sleman, Daerah Istimewa Yogyakarta. Kecamatan Minggir terletak di bagian barat Kabupaten Sleman dan memiliki karakteristik wilayah yang didominasi oleh kawasan perdesaan dengan penggunaan lahan berupa persawahan, perkebunan, permukiman, serta berbagai fasilitas umum. Kondisi wilayah yang relatif subur dan didukung oleh ketersediaan sumber air menjadikan sektor pertanian sebagai salah satu kegiatan utama masyarakat, terutama dalam kegiatan budidaya tanaman pangan dan hortikultura. Selain itu, Kecamatan Minggir memiliki jaringan jalan, sungai, fasilitas pendidikan, fasilitas kesehatan, serta sarana ekonomi yang menunjang aktivitas masyarakat sehari-hari. Secara administratif, Kecamatan Minggir terdiri atas beberapa kalurahan dengan karakteristik dan potensi wilayah yang beragam, sehingga wilayah ini memiliki peranan penting dalam mendukung kegiatan pertanian, sosial, dan perekonomian di Kabupaten Sleman.")
+        marker2.openPopup();
+
+        // Tooltip
+        marker1.bindTooltip("Nanggulan");
+        marker1.openTooltip();
+
+        // Tooltip
+        marker2.bindTooltip("Minggir");
+        marker2.openTooltip();
+
+        // Circle
+        var circle = L.circle([-7.767342987903731, 110.2105696751155], {
+            color: "blue", // warna garis
+            opacity: 1, // opacity garis
+            fillColor: "#f03", // warna fill
+            fillOpacity: 0.5, // opacity fill
+            radius: 1000, // radius dalam meter
+        });
+
+        // Menambahkan circle ke dalam peta
+        circle.addTo(map);
+
+        // Popup 1
+        circle.bindPopup("<b>Area Nanggulan</b><br> Area radius 1 Km dari Kantor Kecamatan Nanggulan")
+        circle.openPopup();
+
+        // Tooltip
+        circle.bindTooltip("Area Nanggulan", { sticky: true });
+        circle.openTooltip();
+
+        // Polyline
+        var vertexPolyline = [
+            [-7.767323799711227, 110.21048041237378],
+            [-7.7255464342094005, 110.23480761294007],
+            [-7.772961728528687, 110.25373530106364],
+        ];
+
+        var polyline = L.polyline(vertexPolyline, {
+            color: "yellow", // warna garis
+            weight: 3, // ketebalan garis
+            opacity: 1, // opacity garis
+        });
+
+        // Menambahkan polyline ke dalam peta
+        polyline.addTo(map);
+
+        // Popup
+        polyline.bindPopup("<b>Garis</b><br>Garis lurus antar kantor kecamatan.")
+        polyline.openPopup();
+
+        // Tooltip
+        polyline.bindTooltip("Garis", { sticky: true })
+        polyline.openTooltip();;
+
+        // Polygon
+        var vertexPolygon = [
+            [-7.776802648645897, 110.21890884048307],
+            [-7.795426273788308, 110.23332839512966],
+            [-7.799763163491276, 110.22809272350203],
+            [-7.778928675090272, 110.20852332791024],
+        ];
+
+        var polygon = L.polygon(vertexPolygon, {
+            color: "purple", // warna garis
+            weight: 3, // ketebalan garis
+            opacity: 1, // opacity garis
+            fillColor: "#0f3", // warna fill
+            fillOpacity: 0.5, // opacity fill
+        });
+
+        // Menambahkan polygon ke dalam peta
+        polygon.addTo(map);
+
+        // Popup
+        polygon.bindPopup("<b>Wijimulyo</b><br>Area Kalurahn Wijimulyo.")
+        polygon.openPopup();
+
+        // Tooltip
+        polygon.bindTooltip("Wijimulyo", { sticky: true })
+        polygon.openTooltip();;
+
+        // Control Layer
+        var baseMaps = {
+            "Open Street Map": osm,
+            "Esri World Imagery": Esri_WorldImagery,
+            "Rupa Bumi Indonesia": rupabumiindonesia,
+            "Open Topo Map": OpenTopoMap,
+            "Open Street Map Hot": OpenStreetMap_HOT,
+        };
+
+        var overlayMaps = {
+            "Nanggulan": marker1,
+            "Minggir": marker2,
+            "Area Nanggulan": circle,
+            "Antar Kecamatan": polyline,
+            "Wijimulyo": polygon
+        };
+
+        var controllayer = L.control.layers(baseMaps, overlayMaps,);
+        controllayer.addTo(map);
+
+        var scale = L.control.scale({ position: "bottomright" })
+        scale.addTo(map);
+
+        // Geolocation
+        var locationMarker;
+        var locationCircle;
+        var locationTracking = false;
+
+        // Fungsi untuk menampilkan lokasi
+        function onLocationFound(e) {
+            var radius = e.accuracy / 2;
+
+            if (locationMarker) {
+                map.removeLayer(locationMarker);
+            }
+
+            if (locationCircle) {
+                map.removeLayer(locationCircle);
+            }
+
+            // Menampilkan marker pada lokasi 
+            locationMarker = L.marker(e.latlng).addTo(map).bindPopup("Anda berada dalam radius " + radius + " meter dari titik ini").openPopup();
+
+            // Menampilkan circle pada lokasi
+            locationCircle = L.circle(e.latlng, radius).addTo(map);
+        }
+
+        map.on("locationfound", onLocationFound);
+
+        // Fungsi untuk menampilkan pesan error
+        function onLocationError(e) {
+            alert(e.message);
+        }
+
+        map.on("locationerror", onLocationError);
+
+        // Tombol pelacakan lokasi
+        var locationControl = L.control({ position: "topright" });
+
+        locationControl.onAdd = function (map) {
+            var div = L.DomUtil.create("div", "leaflet-bar leaflet-control");
+            var button = L.DomUtil.create("a", "", div);
+
+            button.href = "#";
+            button.innerHTML = "📍";
+            button.title = "Nyalakan Pelacakan Lokasi";
+
+            L.DomEvent.disableClickPropagation(div);
+
+            L.DomEvent.on(button, "click", function (e) {
+                L.DomEvent.preventDefault(e);
+
+                if (!locationTracking) {
+                    locationTracking = true;
+
+                    button.innerHTML = "⛔";
+                    button.title = "Matikan Pelacakan Lokasi";
+
+                    map.locate({
+                        watch: true,
+                        enableHighAccuracy: true,
+                        setView: true,
+                        maxZoom: 16
+                    });
+
+                } else {
+                    locationTracking = false;
+
+                    button.innerHTML = "📍";
+                    button.title = "Nyalakan Pelacakan Lokasi";
+
+                    map.stopLocate();
+
+                    if (locationMarker) {
+                        map.removeLayer(locationMarker);
+                        locationMarker = null;
+                    }
+
+                    if (locationCircle) {
+                        map.removeLayer(locationCircle);
+                        locationCircle = null;
+                    }
+                }
+            });
+
+            return div;
+        };
+
+        locationControl.addTo(map);
+
+    </script>
+</body>
+
+</html>
